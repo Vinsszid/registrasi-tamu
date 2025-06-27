@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Daftar Hadir DPRD Kota Bogor</title>
+        <link rel="stylesheet" href="/css/style2.css" />
+    </head>
+    <body>
+        <a href="/admin/tamu" class="btn-admin">Ke Form Admin</a>
+        <div class="container">
+            <div class="kop">
+                <img src="img/logo-kiri.png" alt="Logo Kiri" class="logo" />
+                <div class="text-header">
+                    <h3>SEKRETARIAT DEWAN PERWAKILAN RAKYAT DAERAH</h3>
+                    <h3>KOTA BOGOR</h3>
+                    <p>
+                        Jln. Pemuda No. 25-29 Kelurahan Tanah Sareal Kecamatan
+                        Tanah Sareal
+                    </p>
+                </div>
+            </div>
+
+            <hr />
+
+            <table class="info">
+                <tr>
+                    <td>Hari/Tanggal</td>
+                    <td>: <span id="tanggalText">...</span></td>
+                </tr>
+                <tr>
+                    <td>Waktu</td>
+                    <td>: <span id="waktuText">...</span></td>
+                </tr>
+                <tr>
+                    <td>Tempat</td>
+                    <td>: <span id="tempatText">...</span></td>
+                </tr>
+                <tr>
+                    <td>Acara</td>
+                    <td>: <span id="acaraText">...</span></td>
+                </tr>
+            </table>
+
+            <table class="daftar-hadir">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>NAMA</th>
+                        <th>L/P</th>
+                        <th>NO TELEPON</th>
+                        <th>JABATAN</th>
+                        <th>TANDA TANGAN</th>
+                        <th class="no-print">AKSI</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceList">
+                    <!-- Baris dinamis -->
+                </tbody>
+            </table>
+
+            <!-- Panel Tombol -->
+            <div class="no-print tombol-panel">
+                <!-- Baris input -->
+                <div class="input-baris">
+                    <input
+                        type="date"
+                        id="inputTanggal"
+                        placeholder="Hari/Tanggal"
+                    />
+                    <input type="text" id="inputWaktu" placeholder="Waktu" />
+                    <input type="text" id="inputTempat" placeholder="Tempat" />
+                    <input type="text" id="inputAcara" placeholder="Acara" />
+                </div>
+
+                <!-- Baris tombol atas -->
+                <div class="button-baris">
+                    <button class="btn biru" onclick="setInfo()">
+                        Terapkan
+                    </button>
+                    <button class="btn hijau" onclick="addRow()">
+                        Tambah Baris
+                    </button>
+                </div>
+
+                <!-- Baris tombol bawah -->
+                <div class="button-baris">
+                    <button class="btn hijau" onclick="window.print()">
+                        Cetak
+                    </button>
+                    <button class="btn merah" onclick="deleteLastRow()">
+                        Hapus Baris Terakhir
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <hr />
+            <p>© 2025 Sekretariat DPRD Kota Bogor. All rights reserved.</p>
+            <p>By Mahasiswa Universitas Binaniaga</p>
+        </footer>
+
+        <script src="/js/attendance.js"></script>
+    </body>
+</html>
