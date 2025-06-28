@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminTamuController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authenticate;
+use App\Http\Controllers\Api\TamuController as ApiTamuController;
 
 Route::get('/', function () {
     return redirect()->route('tamu.create');
@@ -56,3 +57,6 @@ Route::middleware('auth')->group(function () {
 Authenticate::redirectUsing(function ($request) {
     return route('admin.login');
 });
+
+Route::post('/api/tamu', [ApiTamuController::class, 'store']);
+Route::get('/api/tamu', [ApiTamuController::class, 'index']);
