@@ -8,17 +8,19 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: url('{{ asset('img/background.jpg') }}') no-repeat center center fixed;
+            min-height: 100vh;
+            background: url('{{ asset('img/background.png') }}') no-repeat center center fixed;
             background-size: cover;
         }
         .overlay {
             background: rgba(255,255,255,0.97);
             border-radius: 18px;
             box-shadow: 0 2px 16px rgba(0,0,0,0.10);
-            padding: 2rem 1.2rem;
+            border: 7px solid #f5f5f5;
+            padding: 1.5rem 0.8rem;
             margin-top: 2.5rem;
             margin-bottom: 2.5rem;
-            max-width: 420px;
+            max-width: 350px;
             width: 100%;
             opacity: 0;
             transform: translateY(40px);
@@ -42,9 +44,10 @@
         }
         @media (max-width: 576px) {
             .overlay {
-                padding: 1rem 0.5rem;
+                padding: 0.7rem 0.2rem;
                 margin-top: 1.2rem;
                 margin-bottom: 1.2rem;
+                max-width: 98vw;
             }
             .logo {
                 max-width: 60px;
@@ -56,14 +59,59 @@
         }
         #signature-pad {
             width: 100% !important;
-            height: 150px;
+            height: 200px;
             display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.7s cubic-bezier(.4,0,.2,1);
+        }
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+        .success-checkmark__circle {
+            stroke-dasharray: 240;
+            stroke-dashoffset: 240;
+            stroke: #28a745;
+            stroke-width: 3;
+            fill: none;
+            animation: drawCircle 0.7s ease-out forwards;
+        }
+        .success-checkmark__check {
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            stroke: #28a745;
+            stroke-width: 3;
+            fill: none;
+            animation: drawCheck 0.4s 0.7s ease-out forwards;
+        }
+        @keyframes drawCircle {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes drawCheck {
+            to { stroke-dashoffset: 0; }
         }
     </style>
 </head>
 <body>
 <div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
+    @if(session('success'))
+        <div class="text-center mb-4 animate-fadeIn">
+            <svg class="success-checkmark" viewBox="0 0 52 52">
+                <circle class="success-checkmark__circle" cx="26" cy="26" r="24" />
+                <path class="success-checkmark__check" d="M16 27l7 7 13-13" />
+            </svg>
+            <h2 class="text-success font-semibold text-lg">{{ session('success') }}</h2>
+        </div>
+    @endif
     <div class="overlay mx-auto" id="formOverlay">
+        @if(!session('success'))
         <div class="text-center">
             <img src="{{ asset('images/logo-kota-bogor.png') }}" alt="Logo Kota Bogor" class="logo">
             <h5 class="mb-3">Form Registrasi Tamu Kunjungan Kerja Luar Daerah</h5>
@@ -79,8 +127,12 @@
                 <input type="text" class="form-control" id="asal_daerah" name="asal_daerah">
             </div>
             <div class="mb-3">
-                <label for="lp" class="form-label">LP</label>
-                <input type="text" class="form-control" id="lp" name="lp" required>
+                <label for="lp" class="form-label">L/P</label>
+                <select class="form-control" id="lp" name="lp" required>
+                    <option value="">Pilih Jenis Kelamin</option>
+                    <option value="L">Laki-laki</option>
+                    <option value="P">Perempuan</option>
+                </select>
             </div>
             <div class="mb-3">
                 <label for="jabatan" class="form-label">Jabatan</label>
@@ -108,14 +160,15 @@
             </div>
             <div class="mb-3">
                 <label for="signature" class="form-label">Tanda Tangan</label>
-                <div class="signature-wrapper border rounded bg-light" style="position:relative;">
+                <div class="signature-wrapper border rounded bg-light position-relative" style="position:relative;">
                     <canvas id="signature-pad"></canvas>
-                    <button type="button" id="clear-signature" class="btn btn-sm btn-secondary position-absolute" style="top:5px;right:5px;">Bersihkan</button>
+                    <input type="hidden" id="signature" name="signature">
                 </div>
-                <input type="hidden" id="signature" name="signature">
+                <button type="button" id="clear-signature" class="btn btn-danger btn-sm mt-2">Bersihkan</button>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Submit</button>
+            <button type="submit" class="btn btn-success w-100 mt-3 d-block mx-auto">Submit</button>
         </form>
+        @endif
     </div>
     <div class="text-center mt-3" style="font-size:0.9rem; color:#FFFFFF;">
         © 2025 Sekretariat DPRD Kota Bogor. All rights reserved.<br>

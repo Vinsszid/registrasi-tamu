@@ -56,6 +56,10 @@
             @yield('content')
         </div>
     </div>
+    <div class="text-center mt-3" style="font-size:0.9rem; color:#fff;">
+        © 2025 Sekretariat DPRD Kota Bogor. All rights reserved.<br>
+        By Mahasiswa Universitas Binaniaga
+    </div>
 
     <!-- Bootstrap JS (optional) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

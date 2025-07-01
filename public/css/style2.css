@@ -2,7 +2,7 @@
 body {
     font-family: Arial, sans-serif;
     padding: 30px;
-    background-image: url("../img/background.jpg"); /* sesuaikan path jika berbeda */
+    background-image: url("../img/background.png"); /* sesuaikan path jika berbeda */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

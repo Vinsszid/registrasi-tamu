@@ -16,7 +16,7 @@
                 Tanah Sareal
             </p>
         </div>
-        <img src="{{ asset('img/logo-kanan.png') }}" alt="Logo Kanan" class="logo" />
+       
     </div>
 
     <hr />
@@ -31,7 +31,7 @@
 
     <!-- Tombol Menuju Web Print -->
     <div class="mb-4 text-right no-print">
-        <a href="/index.html" class="btn-webprint">Menuju Web Print</a>
+        <a href="/index.html" class="btn-webprint">Web Print</a>
     </div>
 
     <form action="{{ route('admin.tamu.bulk-download') }}" method="POST" class="no-print" name="bulk-download-form">
@@ -102,12 +102,10 @@
     </div>
 </div>
 
-<!-- Footer -->
-<footer class="footer no-print">
-    <hr />
-    <p>© 2025 Sekretariat DPRD Kota Bogor. All rights reserved.</p>
-    <p>By Mahasiswa Universitas Binaniaga</p>
-</footer>
+<div class="text-center mt-3" style="font-size:0.9rem; color:#fff;">
+    © 2025 Sekretariat DPRD Kota Bogor. All rights reserved.<br>
+    By Mahasiswa Universitas Binaniaga
+</div>
 @endsection
 
 <script>
