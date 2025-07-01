@@ -4,6 +4,7 @@
 <!-- Link ke CSS yang baru -->
 <link rel="stylesheet" href="{{ asset('css/style2.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/style-admin-webprint.css') }}">
+
 <div class="container">
     <div class="kop">
         <img src="{{ asset('img/logo-kiri.png') }}" alt="Logo Kiri" class="logo" />
@@ -110,8 +111,6 @@
 @endsection
 
 <script>
-    console.log("Script loaded and running."); // Log untuk debugging awal
-
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('select-all').addEventListener('change', function () {
             const checkboxes = document.querySelectorAll('input[name="selected_ids[]"]');
@@ -124,9 +123,6 @@
         if (bulkDownloadForm) {
             bulkDownloadForm.addEventListener('submit', function(e) {
                 const checkboxes = document.querySelectorAll('input[name="selected_ids[]"]:checked');
-                
-                console.log('Jumlah checkbox terpilih:', checkboxes.length); // Log jumlah checkbox yang terpilih
-
                 if (checkboxes.length === 0) {
                     alert('Pilih setidaknya satu data untuk diunduh.');
                     e.preventDefault();
@@ -140,8 +136,6 @@
                     });
                 }
             });
-        } else {
-            console.log('Form bulk-download-form tidak ditemukan.');
         }
     });
 </script>
