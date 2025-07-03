@@ -10,12 +10,15 @@ return new class extends Migration {
         Schema::create('tamus', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('instansi_asal');
-            $table->string('acara');
-            $table->date('tanggal_kunjungan');
-            $table->time('waktu_datang');
+            $table->string('lp');
+            $table->string('jabatan');
             $table->string('nomor_hp', 20);
-            $table->text('catatan')->nullable();
+            $table->string('waktu');
+            $table->date('tanggal');
+            $table->string('tempat');
+            $table->string('acara');
+            $table->string('asal_daerah');
+            $table->text('signature');
             $table->timestamps();
         });
     }
