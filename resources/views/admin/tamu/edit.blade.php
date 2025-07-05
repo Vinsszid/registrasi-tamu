@@ -6,7 +6,38 @@
     <title>Edit Data Tamu</title>
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/edit-tamu.css') }}">
+    
+    <style>
+        body {
+            background: url("../img/background.png") no-repeat center center fixed;
+            background-size: cover;
+        }
+        .admin-overlay {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+            border: 7px solid #f5f5f5;
+            padding: 2rem 1.2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            width: 100%;
+        }
+        @media (max-width: 576px) {
+            .admin-overlay {
+                padding: 1rem 0.5rem;
+                margin-top: 1.2rem;
+                margin-bottom: 1.2rem;
+                max-width: 98vw;
+            }
+        }
+        .logo {
+            max-width: 120px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
 <div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
@@ -30,8 +61,8 @@
                 <label for="lp" class="form-label">L/P</label>
                 <select class="form-control" id="lp" name="lp" required>
                     <option value="">Pilih Jenis Kelamin</option>
-                    <option value="L">Laki-laki</option>
-                    <option value="P">Perempuan</option>
+                    <option value="L" {{ $tamu->lp == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                    <option value="P" {{ $tamu->lp == 'P' ? 'selected' : '' }}>Perempuan</option>
                 </select>
             </div>
             <div class="mb-3">

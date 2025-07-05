@@ -322,7 +322,6 @@ table.daftar-hadir td:nth-child(5) {
     flex-direction: column;
     align-items: center;
 }
-
     </style>
 </head>
 <body>
@@ -404,6 +403,7 @@ table.daftar-hadir td:nth-child(5) {
         By Mahasiswa Universitas Binaniaga
     </div>
 </div>
+
 <script>
     // Animasi fade-in saat form muncul
 document.addEventListener("DOMContentLoaded", function () {

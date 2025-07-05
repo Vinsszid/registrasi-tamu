@@ -2,7 +2,29 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ asset('css/pdf-manual.css') }}">
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+        }
+        .kop {
+            text-align: center;
+        }
+        .info {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
 

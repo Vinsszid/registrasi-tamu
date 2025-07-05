@@ -2,8 +2,249 @@
 
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/style-admin-webprint.css') }}">
-<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 30px;
+        background-image: url("../img/background.png"); /* sesuaikan path jika berbeda */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+    }
+
+    .container {
+        background-color: white;
+        padding: 20px;
+        max-width: 900px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* === Header / Kop === */
+    .kop {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .logo {
+        height: 100px;
+        width: auto;
+    }
+
+    .text-header {
+        text-align: center;
+        flex: 1;
+        padding: 0 20px;
+    }
+
+    /* === Garis Pembatas === */
+    hr {
+        border: 1px solid black;
+        margin: 20px 0;
+    }
+
+    /* === Info Tanggal/Waktu/Tempat/Acara === */
+    table.info {
+        margin: 0 auto 20px auto;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    table.info td {
+        padding: 2px 10px 2px 0;
+    }
+
+    /* === Tabel Daftar Hadir === */
+    table.daftar-hadir {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    table.daftar-hadir th,
+    table.daftar-hadir td {
+        border: 1px solid black;
+        text-align: center;
+        padding: 5px;
+        height: 30px;
+    }
+
+    table.daftar-hadir th {
+        background-color: #f2f2f2;
+    }
+
+    /* Kolom Nama dan Jabatan rata tengah (default) */
+    table.daftar-hadir th:nth-child(2),
+    table.daftar-hadir td:nth-child(2),
+    table.daftar-hadir th:nth-child(5),
+    table.daftar-hadir td:nth-child(5) {
+        text-align: center !important;
+        padding-left: 0;
+    }
+
+    /* Kolom Nama lebih lebar dan rata kiri (override) */
+    table.daftar-hadir th:nth-child(2),
+    table.daftar-hadir td:nth-child(2) {
+        min-width: 200px;
+        width: 220px;
+        text-align: left !important;
+        padding-left: 12px;
+    }
+
+    /* Kolom Jabatan lebih lebar dan rata kiri (override) */
+    table.daftar-hadir th:nth-child(5),
+    table.daftar-hadir td:nth-child(5) {
+        min-width: 160px;
+        width: 180px;
+        text-align: left !important;
+        padding-left: 10px;
+    }
+
+    @media print {
+        table.daftar-hadir th:nth-child(2),
+        table.daftar-hadir td:nth-child(2) {
+            min-width: 220px;
+            width: 250px;
+            font-size: 15px;
+        }
+
+        table.daftar-hadir th:nth-child(5),
+        table.daftar-hadir td:nth-child(5) {
+            min-width: 180px;
+            width: 200px;
+            font-size: 15px;
+        }
+    }
+
+    /* === Panel Tombol & Input === */
+    .tombol-panel {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        margin-top: 20px;
+        margin-left: 10px;
+        margin-bottom: 30px;
+    }
+
+    .input-baris {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .input-baris input {
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        min-width: 150px;
+        font-size: 14px;
+    }
+
+    .button-baris {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .button-kolom {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    /* === Tombol Admin === */
+    .btn {
+        padding: 8px 14px;
+        font-size: 14px;
+        cursor: pointer;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .biru {
+        background-color: #007bff;
+    }
+    .hijau {
+        background-color: #28a745;
+    }
+    .merah {
+        background-color: #dc3545;
+    }
+
+    .btn-admin {
+        background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
+        color: #fff;
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+        transition: background 0.2s, box-shadow 0.2s;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+    .btn-admin:hover {
+        background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    /* === Download Data === */
+    .no-print {
+        display: block;
+    }
+
+    @media print {
+        .no-print {
+            display: none !important;
+        }
+
+        body {
+            background: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            box-shadow: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .kop {
+            margin-bottom: 20px;
+        }
+
+        .text-header {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .logo {
+            max-width: 80px;
+        }
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 12px;
+        color: #666;
+    }
+</style>
 
 <div class="container">
     <div class="kop">
@@ -105,6 +346,43 @@
     © 2025 Sekretariat DPRD Kota Bogor. All rights reserved.<br>
     By Mahasiswa Universitas Binaniaga
 </div>
-@endsection
 
-<script src="{{ asset('js/admin.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document
+            .getElementById("select-all")
+            .addEventListener("change", function () {
+                const checkboxes = document.querySelectorAll(
+                    'input[name="selected_ids[]"]'
+                );
+                for (let checkbox of checkboxes) {
+                    checkbox.checked = this.checked;
+                }
+            });
+
+        const bulkDownloadForm = document.querySelector(
+            'form[name="bulk-download-form"]'
+        );
+        if (bulkDownloadForm) {
+            bulkDownloadForm.addEventListener("submit", function (e) {
+                const checkboxes = document.querySelectorAll(
+                    'input[name="selected_ids[]"]:checked'
+                );
+                if (checkboxes.length === 0) {
+                    alert("Pilih setidaknya satu data untuk diunduh.");
+                    e.preventDefault();
+                } else {
+                    checkboxes.forEach(function (checkbox) {
+                        const hiddenInput = document.createElement("input");
+                        hiddenInput.type = "hidden";
+                        hiddenInput.name = "selected_ids[]";
+                        hiddenInput.value = checkbox.value;
+                        e.target.appendChild(hiddenInput);
+                    });
+                }
+            });
+        }
+    });
+</script>
+
+@endsection

@@ -2,7 +2,41 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{{ asset('css/bulk-download.css') }}">
+    <style>
+        body {
+            font-family: sans-serif;
+            font-size: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 4px;
+            text-align: center;
+        }
+        .kop {
+            text-align: center;
+            position: relative;
+        }
+        .kop img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 60px;
+        }
+        .kop h3,
+        .kop p {
+            margin: 0;
+        }
+        .info {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
