@@ -1,8 +1,10 @@
-/* === Umum === */
+/* === Form Tamu === */
 body {
     font-family: Arial, sans-serif;
-    padding: 30px;
-    background-image: url("../img/background.png"); /* sesuaikan path jika berbeda */
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-image: url("../img/background.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -10,11 +12,98 @@ body {
 }
 
 .container {
-    background-color: white;
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 30px 20px;
+    max-width: 420px;
+    margin: 40px auto;
+    border-radius: 18px;
+    box-shadow: none;
+}
+
+.overlay {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 1.5px 8px rgba(0, 0, 0, 0.1);
+    border: 7px solid #f5f5f5;
+    padding: 1.5rem 0.8rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    max-width: 350px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+}
+
+.overlay.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.overlay.scrolled {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.success-box {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    max-width: 480px;
+    margin: 0 auto 1.5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    max-width: 90px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (max-width: 576px) {
+    .overlay {
+        padding: 0.7rem 0.2rem;
+        margin-top: 1.2rem;
+        margin-bottom: 1.2rem;
+        max-width: 98vw;
+    }
+    .logo {
+        max-width: 60px;
+    }
+}
+
+.signature-wrapper {
+    width: 100%;
+    max-width: 100%;
+}
+
+#signature-pad {
+    width: 100% !important;
+    height: 200px;
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* === Header / Kop === */
@@ -23,11 +112,6 @@ body {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-}
-
-.logo {
-    height: 100px;
-    width: auto;
 }
 
 .text-header {
@@ -178,63 +262,54 @@ table.daftar-hadir td:nth-child(5) {
     background-color: #dc3545;
 }
 
-/* === Tombol Admin === */
-.btn-admin {
-    background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
-    color: #fff;
-    padding: 10px 24px;
-    border-radius: 6px;
-    font-weight: 600;
-    text-decoration: none;
-    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
-    transition: background 0.2s, box-shadow 0.2s;
-    display: inline-block;
-    margin-bottom: 20px;
-}
-.btn-admin:hover {
-    background: linear-gradient(90deg, #1d4ed8 0%, #2563eb 100%);
-    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
-    color: #fff;
-    text-decoration: none;
-}
-
-/* === Cetak (Print) === */
+/* === PRINT STYLES === */
 .no-print {
     display: block;
 }
 
 @media print {
     .no-print {
-        display: none !important;
+        display: none;
     }
 
     body {
-        background-color: white;
+        background-image: none;
+        padding: 0;
     }
 
     .container {
         box-shadow: none;
-        padding: 0;
+        max-width: none;
     }
 
     .kop {
-        gap: 60px; /* Lebih lebar saat print */
+        margin-bottom: 20px;
     }
 
     .text-header {
-        padding: 0 30px;
+        font-size: 18px;
     }
 
     .logo {
-        height: 90px;
+        height: 80px;
     }
 }
 
-/* === Footer === */
 .footer {
     text-align: center;
-    font-size: 0.9em;
-    color: #ffffff;
     margin-top: 30px;
-    padding: 15px 10px;
+    font-size: 12px;
+    color: #666;
+}
+
+.refresh-box {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    max-width: 320px;
+    margin: 0 auto 1.5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

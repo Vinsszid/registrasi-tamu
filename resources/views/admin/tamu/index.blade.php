@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Link ke CSS yang baru -->
-<link rel="stylesheet" href="{{ asset('css/style2.css') }}" />
+
 <link rel="stylesheet" href="{{ asset('css/style-admin-webprint.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 
 <div class="container">
     <div class="kop">
@@ -31,16 +31,15 @@
 
     <!-- Tombol Menuju Web Print -->
     <div class="mb-4 text-right no-print">
-        <a href="/index.html" class="btn-webprint">Web Print</a>
+        <a href="/index.html" class="btn biru">Web Print</a>
     </div>
 
-    <form action="{{ route('admin.tamu.bulk-download') }}" method="POST" class="no-print" name="bulk-download-form">
+    <form action="{{ route('admin.tamu.bulk-download') }}" method="POST" class="no-print d-flex gap-2" name="bulk-download-form" style="display:flex;gap:12px;align-items:center;">
         @csrf
-        <div class="mb-4">
-            <button type="submit" class="btn hijau">
-                Download Data
-            </button>
-        </div>
+        <button type="submit" class="btn hijau">
+            Download Data
+        </button>
+        <a href="{{ route('admin.tamu.index') }}" class="btn btn-primary">Refresh Form</a>
     </form>
 
     <div class="overflow-x-auto bg-white shadow-md rounded-lg">
@@ -108,32 +107,4 @@
 </div>
 @endsection
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('select-all').addEventListener('change', function () {
-            const checkboxes = document.querySelectorAll('input[name="selected_ids[]"]');
-            for (let checkbox of checkboxes) {
-                checkbox.checked = this.checked;
-            }
-        });
-
-        const bulkDownloadForm = document.querySelector('form[name="bulk-download-form"]');
-        if (bulkDownloadForm) {
-            bulkDownloadForm.addEventListener('submit', function(e) {
-                const checkboxes = document.querySelectorAll('input[name="selected_ids[]"]:checked');
-                if (checkboxes.length === 0) {
-                    alert('Pilih setidaknya satu data untuk diunduh.');
-                    e.preventDefault();
-                } else {
-                    checkboxes.forEach(function(checkbox) {
-                        const hiddenInput = document.createElement('input');
-                        hiddenInput.type = 'hidden';
-                        hiddenInput.name = 'selected_ids[]';
-                        hiddenInput.value = checkbox.value;
-                        e.target.appendChild(hiddenInput);
-                    });
-                }
-            });
-        }
-    });
-</script>
+<script src="{{ asset('js/admin.js') }}"></script>
