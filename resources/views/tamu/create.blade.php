@@ -6,7 +6,324 @@
     <title>Form Registrasi Tamu</title>
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/tamu.css') }}">
+    <style>
+        /* === Form Tamu === */
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-image: url("../img/background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 30px 20px;
+    max-width: 420px;
+    margin: 40px auto;
+    border-radius: 18px;
+    box-shadow: none;
+}
+
+.overlay {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 1.5px 8px rgba(0, 0, 0, 0.1);
+    border: 7px solid #f5f5f5;
+    padding: 1.5rem 0.8rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    max-width: 350px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+}
+
+.overlay.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.overlay.scrolled {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.success-box {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    max-width: 480px;
+    margin: 0 auto 1.5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    max-width: 90px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (max-width: 576px) {
+    .overlay {
+        padding: 0.7rem 0.2rem;
+        margin-top: 1.2rem;
+        margin-bottom: 1.2rem;
+        max-width: 98vw;
+    }
+    .logo {
+        max-width: 60px;
+    }
+}
+
+.signature-wrapper {
+    width: 100%;
+    max-width: 100%;
+}
+
+#signature-pad {
+    width: 100% !important;
+    height: 200px;
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Header / Kop === */
+.kop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.text-header {
+    text-align: center;
+    flex: 1;
+    padding: 0 20px;
+}
+
+/* === Garis Pembatas === */
+hr {
+    border: 1px solid black;
+    margin: 20px 0;
+}
+
+/* === Info Tanggal/Waktu/Tempat/Acara === */
+table.info {
+    margin: 0 auto 20px auto;
+    font-size: 14px;
+    text-align: left;
+}
+
+table.info td {
+    padding: 2px 10px 2px 0;
+}
+
+/* === Tabel Daftar Hadir === */
+table.daftar-hadir {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+table.daftar-hadir th,
+table.daftar-hadir td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+    height: 30px;
+}
+
+table.daftar-hadir th {
+    background-color: #f2f2f2;
+}
+
+/* Kolom Nama dan Jabatan rata tengah */
+table.daftar-hadir th:nth-child(2),
+table.daftar-hadir td:nth-child(2),
+table.daftar-hadir th:nth-child(5),
+table.daftar-hadir td:nth-child(5) {
+    text-align: center !important;
+    padding-left: 0;
+}
+
+/* Kolom Nama lebih lebar */
+table.daftar-hadir th:nth-child(2),
+table.daftar-hadir td:nth-child(2) {
+    min-width: 200px;
+    width: 220px;
+    text-align: left;
+    padding-left: 12px;
+}
+
+/* Kolom Jabatan lebih lebar */
+table.daftar-hadir th:nth-child(5),
+table.daftar-hadir td:nth-child(5) {
+    min-width: 160px;
+    width: 180px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+@media print {
+    table.daftar-hadir th:nth-child(2),
+    table.daftar-hadir td:nth-child(2) {
+        min-width: 220px;
+        width: 250px;
+        font-size: 15px;
+    }
+
+    table.daftar-hadir th:nth-child(5),
+    table.daftar-hadir td:nth-child(5) {
+        min-width: 180px;
+        width: 200px;
+        font-size: 15px;
+    }
+}
+
+/* === Panel Tombol & Input === */
+.tombol-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+
+.input-baris {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.input-baris input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-width: 150px;
+    font-size: 14px;
+}
+
+.button-baris {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.button-kolom {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* === Tombol Umum === */
+.btn {
+    padding: 8px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.biru {
+    background-color: #007bff;
+}
+.hijau {
+    background-color: #28a745;
+}
+.merah {
+    background-color: #dc3545;
+}
+
+/* === PRINT STYLES === */
+.no-print {
+    display: block;
+}
+
+@media print {
+    .no-print {
+        display: none;
+    }
+
+    body {
+        background-image: none;
+        padding: 0;
+    }
+
+    .container {
+        box-shadow: none;
+        max-width: none;
+    }
+
+    .kop {
+        margin-bottom: 20px;
+    }
+
+    .text-header {
+        font-size: 18px;
+    }
+
+    .logo {
+        height: 80px;
+    }
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #666;
+}
+
+.refresh-box {
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    max-width: 320px;
+    margin: 0 auto 1.5rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    </style>
 </head>
 <body>
 <div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
