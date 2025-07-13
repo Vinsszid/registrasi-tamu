@@ -12,9 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tamus', function (Blueprint $table) {
-            $table->string('lp')->nullable();
-            $table->string('jabatan')->nullable();
-            $table->text('signature')->nullable();
+            if (!Schema::hasColumn('tamus', 'lp')) {
+                $table->string('lp')->nullable();
+            }
+
+            if (!Schema::hasColumn('tamus', 'jabatan')) {
+                $table->string('jabatan')->nullable();
+            }
+
+            if (!Schema::hasColumn('tamus', 'signature')) {
+                $table->text('signature')->nullable();
+            }
         });
     }
 
@@ -24,7 +32,17 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tamus', function (Blueprint $table) {
-            $table->dropColumn(['lp', 'jabatan', 'signature']);
+            if (Schema::hasColumn('tamus', 'lp')) {
+                $table->dropColumn('lp');
+            }
+
+            if (Schema::hasColumn('tamus', 'jabatan')) {
+                $table->dropColumn('jabatan');
+            }
+
+            if (Schema::hasColumn('tamus', 'signature')) {
+                $table->dropColumn('signature');
+            }
         });
     }
 };
